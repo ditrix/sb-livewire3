@@ -1,7 +1,7 @@
-### Sandbox Livewire 3
+### Sandbox [Livewire 3]((https://livewire.laravel.com/docs/3.x/quickstart))
 
 -------
-[Livewire](https://livewire.laravel.com/docs/3.x/quickstart)
+
 
 [Андрей Кудлай](https://www.youtube.com/@matroskin978)
 
