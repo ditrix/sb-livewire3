@@ -1,4 +1,4 @@
-### Sandbox [Livewire 3]((https://livewire.laravel.com/docs/3.x/quickstart))
+### Sandbox [Livewire 3](https://livewire.laravel.com/docs/3.x/quickstart)
 
 -------
 

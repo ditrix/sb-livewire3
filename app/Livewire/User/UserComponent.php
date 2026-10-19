@@ -2,41 +2,56 @@
 
 namespace App\Livewire\User;
 
+use App\Models\User;
 use Livewire\Component;
 
 class UserComponent extends Component
 {
-    public $name = 'Anonimus';
+    public string $name = '';
 
-    public $full_name;
+    public string $email = '';
 
-    public function mount()
+    public string $password = '';
+
+    public function mount() {}
+
+    public function createUser()
     {
-        $this->full_name = 'Mr. '.$this->name.' Jr.';
+        $this->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password),
+        ]);
+
+        session()->flash('status', 'User successfully created.');
+
+        // clear the form fields after successful creation
+        $this->reset('name', 'email', 'password');
     }
 
-    public array $users = [
-        'User1',
-        'User2',
-        'User3',
-    ];
-
-    public $user;
-
-    public function add()
+    public function deleteUser($userId)
     {
-        $this->users[] = $this->user;
+        $user = User::find($userId);
+
+        if ($user) {
+            $user->delete();
+        }
     }
 
     public function render()
     {
+        $users = User::all();
+        //        dd($users);
 
         return view('livewire.user.user-component', [
-            'name' => $this->name,
-            'email' => 'john.@gmail.com',
-            'full_name' => $this->full_name,
-            'users' => $this->users,
-            'user' => $this->user,
-        ])->with('prefix', 'Mr.');
+
+            'users' => $users,
+        ]);
     }
 }
