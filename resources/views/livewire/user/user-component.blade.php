@@ -1,26 +1,29 @@
 <div>
-    {{-- Nothing in the world is as soft and yielding as water. --}}
-    Name: <input type="text" wire:model.live="name">
-    Email: <input type="text" wire:model.live="email">
-    {{-- NB!: wire:model.live is a new feature in Livewire 3. It allows you to bind data to your component without the need for a form submission. This means that as you type in the input fields, the data is automatically updated in the component's state. --}}
-    <br>
-    {{ $prefix }}
-    <br>
-    Name: {{ $name }}
-    <br>
-    Email: {{ $email }}
-    <br>
-    Full Name: {{ $full_name }}
-    <hr>
-    <label>Add User</label>
-    <input type="text" wire:model.live="user">
-    <button class="btn btn-primary" wire:click="add">Add user</button>
-    <ul>
-        @foreach ($users as $user)
-            <li>
-                {{ $user }}
-            </li>
-        @endforeach
-    </ul>
-    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <form class="forrm-group" wire:submit.prevent="createUser">
+
+                <input type="text" wire:model="name" placeholder="Name" class="form-control mb-2">
+                <input type="email" wire:model="email" placeholder="Email" class="form-control mb-2">
+                <input type="password" wire:model="password" placeholder="Password" class="form-control mb-2">
+                <button type="submit" class="btn btn-primary">Create User</button>
+            </form>
+
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-lg font-medium mb-4">Users</h2>
+            <ul class="list-disc pl-6">
+                @foreach ($users as $user)
+                    <li class="gap-1">
+                        {{ $user->id }} | {{ $user->email }} | {{ $user->name }} |
+                        <a class="text-red-500 hover:text-red-700" wire:click="deleteUser({{ $user->id }})"
+                            wire:confirm="Really?">Delete</a>
+                    </li>
+                @endforeach
+            </ul>
+
+        </div>
+    </div>
 </div>
