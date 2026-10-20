@@ -13,7 +13,15 @@
 
         </div>
         <div class="col-md-6">
-            <h2 class="text-lg font-medium mb-4">Users</h2>
+            {{-- <button wire:click="$refresh" class="btn btn-success">Refresh</button> --}}
+            <div class="d-flex align-items-center gap-2 mb-4">
+                <button class="btn btn-success" type="button" wire:click.throttle.3000ms="$refresh">
+                    Refresh Users
+                </button>
+                <span wire:loading>Loading...</span>
+
+
+            </div>
             <ul class="list-disc pl-6">
                 @foreach ($users as $user)
                     <li class="gap-1">
