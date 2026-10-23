@@ -3,17 +3,35 @@
     <div class="row">
         <div class="col-md-6">
 
-            <form class="forrm-group" wire:submit.prevent="createUser">
+            <form class="forrm-group" wire:submit="createUser">
 
                 <input type="text" wire:model="name" placeholder="Name" class="form-control mb-2">
+                <div>
+                    @error('name')
+                        {{ $message }}
+                    @enderror
+                </div>
+
                 <input type="email" wire:model="email" placeholder="Email" class="form-control mb-2">
-                <input type="password" wire:model="password" placeholder="Password" class="form-control mb-2">
+                <div>
+                    @error('email')
+                        {{ $message }}
+                    @enderror
+                </div>
+
+                <input type="password" wire:model="password" placeholder="Password" class="form-control mb-2"
+                    autocomplete="current-password">
+                <div>
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </div>
+
                 <button type="submit" class="btn btn-primary">Create User</button>
             </form>
 
         </div>
         <div class="col-md-6">
-            <h2 class="text-lg font-medium mb-4">Users</h2>
             <ul class="list-disc pl-6">
                 @foreach ($users as $user)
                     <li class="gap-1">
