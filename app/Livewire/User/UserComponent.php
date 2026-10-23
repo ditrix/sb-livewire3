@@ -3,31 +3,37 @@
 namespace App\Livewire\User;
 
 use App\Models\User;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+
+// используюься либо валидаторы типа Requestoв ли атрибуты
 
 class UserComponent extends Component
 {
+    #[Validate('required|string|max:255')]
     public string $name = '';
 
+    #[Validate('required|email|unique:users,email')]
     public string $email = '';
 
+    #[Validate('required|string|min:6')]
     public string $password = '';
 
     public function mount() {}
 
     public function createUser()
     {
-        $this->validate([
+        // стиль неквестов
+        $validated = $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6',
         ]);
 
-        User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password),
-        ]);
+        //  User::create($validated);  // стиль реквестов
+
+        // стиль атрибутов
+        User::create($this->all());
 
         session()->flash('status', 'User successfully created.');
 
