@@ -2,26 +2,14 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 // используюься либо валидаторы типа Requestoв ли атрибуты
 
 class UserComponent extends Component
 {
-    public UserForm $form;
-
-    public function mount() {}
-
-    public function createUser()
-    {
-
-        $this->form->create();
-
-        session()->flash('success', 'User successfully created.');
-    }
-
     public function deleteUser($userId)
     {
         $user = User::find($userId);
@@ -29,6 +17,12 @@ class UserComponent extends Component
         if ($user) {
             $user->delete();
         }
+    }
+
+    #[On('user-created')]
+    public function updateUserList()
+    {
+        return true;
     }
 
     public function render()
