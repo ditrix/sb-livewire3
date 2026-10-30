@@ -1,5 +1,11 @@
 ### Sandbox [Livewire 3](https://livewire.laravel.com/docs/3.x/quickstart)
 
+
+#### NB!  часть установки (вручную)
+```bash
+php artisan livewire:publish --config
+```
+
 -------
 
 

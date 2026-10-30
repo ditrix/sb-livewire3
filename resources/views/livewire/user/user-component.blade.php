@@ -8,5 +8,8 @@
             </li>
         @endforeach
     </ul>
+    <div>
+        {{ $users->links() }}
+    </div>
 
 </div>
