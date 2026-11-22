@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
+use App\Models\Country;
 use Livewire\Component;
 
 class CreateUser extends Component
@@ -21,6 +22,11 @@ class CreateUser extends Component
 
     public function render()
     {
-        return view('livewire.user.create-user');
+
+        $countries = Country::all();
+
+        return view('livewire.user.create-user', [
+            'countries' => $countries,
+        ]);
     }
 }

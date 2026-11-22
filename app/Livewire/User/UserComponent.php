@@ -27,11 +27,12 @@ class UserComponent extends Component
 
     public function render()
     {
-        $users = User::all();
+        $users = User::with('country')->orderBy('id', 'desc')->get();
 
         return view('livewire.user.user-component', [
 
             'users' => $users,
+
         ]);
     }
 }
