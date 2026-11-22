@@ -1,4 +1,4 @@
-        <div>
+        <div class="col-4">
 
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,6 +33,15 @@
                         {{ $message }}
                     @enderror
                 </div>
+
+                <select class="form-select mt-4" wire:model="form.country_id">
+                    <option>Select a country</option>
+
+                    @foreach ($countries as $country)
+                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                    @endforeach
+
+                </select>
 
                 <button type="submit" class="btn btn-primary mt-3">Create User</button>
             </form>
