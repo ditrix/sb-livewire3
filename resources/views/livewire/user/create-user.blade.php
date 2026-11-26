@@ -1,4 +1,4 @@
-        <div>
+        <div class="col-4">
 
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,8 +33,39 @@
                         {{ $message }}
                     @enderror
                 </div>
+                <div class="form-control mt-4">
+                    <div wire:ignore>
+                        <select class="select2 form-select mt-4" wire:model="form.country_id">
+                            <option>Select a country</option>
 
+                            @foreach ($countries as $country)
+                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary mt-3">Create User</button>
             </form>
 
         </div>
+
+        @script
+            <script>
+                $(document).ready(function() {
+
+                    let select2 = $('.select2');
+                    console.log(select2);
+                    select2.select2();
+
+                    select2.on('change', function(e) {
+                        let data = $(this).val();
+                        $wire.form.country_id = data;
+                    });
+
+
+                    $wire: on('user-created')(() => select2.val(null).trigger('change'))
+
+                });
+            </script>
+        @endscript
